@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vietnamese for Real Life & Work</title>
+<style>
+:root{--bg:#fff8ee;--card:#ffffff;--ink:#3b2a1e;--muted:#8a6a55;--green:#2e8b3e;--green-l:#e6f6e1;--line:#f7d9b5;--bad:#d9480f;--good:#2e8b3e}
+
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#ffe9c7 0%,var(--bg) 380px);color:var(--ink);line-height:1.6;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.wrap{max-width:860px;margin:0 auto;padding:24px 18px 40px}
+h1{font-size:1.7rem;margin:0 0 4px;color:var(--green);letter-spacing:.02em}
+h2{font-size:1.25rem;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.card p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#fff;padding:9px 16px;border-radius:7px}
+button.ghost{background:transparent;color:var(--green)}
+button.on{background:var(--green-l)}
+button:disabled{opacity:.5;cursor:default}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.progress{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:10px 0 4px}
+.progress div{height:100%;background:var(--green);transition:width .3s}
+.muted{color:var(--muted);font-size:.9rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0;border-bottom:1px solid var(--line);padding-bottom:12px}
+.tabs button{background:transparent;color:var(--ink);border-color:var(--line)}
+.tabs button.active{background:var(--green);color:#fff;border-color:var(--green)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+.para{margin:0 0 18px}
+.vi{font-size:1.08rem}
+.en{display:none;color:var(--muted);font-size:.97rem;margin-top:2px;padding-left:12px;border-left:3px solid var(--green)}
+.show-en .en{display:block}
+.vgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.vcard{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--card);display:flex;flex-direction:column;gap:6px}
+.vcard .w{font-size:1.15rem;font-weight:600;color:var(--green)}
+.vcard.learned{background:var(--green-l)}
+.q{margin:0 0 20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opts button{text-align:left;background:var(--card);color:var(--ink);border-color:var(--line)}
+.opts button.sel{border-color:var(--green);background:var(--green-l)}
+.opts button.right{border-color:var(--good);background:#dcefe3;color:#1d3d2b}
+.opts button.wrong{border-color:var(--bad);background:#f5dcd7;color:#4a1c15}
+.expl{font-size:.92rem;color:var(--muted);margin:4px 0 0}
+.score{font-size:1.1rem;font-weight:600;margin:10px 0}
+footer{text-align:center;color:var(--muted);font-size:.9rem;margin-top:32px}
+.hero{text-align:center;padding:10px 0 18px}
+.food-row{font-size:2rem;letter-spacing:.3em}
+.food{font-size:2.6rem;margin-bottom:2px}
+.hero h1{color:#d9480f;font-size:2rem}
+.card{box-shadow:0 6px 18px rgba(255,120,60,.15);border-color:#ffd9b0;transition:transform .2s}
+.card:hover{transform:translateY(-3px)}
+button{box-shadow:0 3px 8px rgba(46,139,62,.25)}
+.panel{box-shadow:0 4px 14px rgba(120,70,30,.08)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+const LESSONS = [
+{
+  title: "Working in a Restaurant",
+  desc: "Daily routines, serving guests, special requests and handling peak hours.",
+  rtitle: "Một ngày làm việc ở nhà hàng",
+  reading: [
+    ["Nhà hàng của Minh nằm ở trung tâm thành phố và thường khá đông khách vào buổi tối.", "Minh's restaurant is located in the city center and is usually quite busy in the evening."],
+    ["Trước khi mở cửa, nhân viên cần kiểm tra bàn ghế, chuẩn bị thực đơn và đảm bảo các dụng cụ ăn uống đã sẵn sàng.", "Before opening, staff need to check the tables and chairs, prepare the menus, and make sure the dining utensils are ready."],
+    ["Khi khách đến, nhân viên phục vụ sẽ chào khách, hỏi số lượng người và hướng dẫn khách đến bàn phù hợp.", "When guests arrive, the server greets them, asks how many people there are, and guides them to a suitable table."],
+    ["Sau đó, họ đưa thực đơn và giới thiệu những món ăn đặc biệt trong ngày.", "After that, they hand over the menu and introduce the day's special dishes."],
+    ["Nếu khách có yêu cầu riêng, chẳng hạn như không ăn cay hoặc bị dị ứng với một loại thực phẩm nào đó, nhân viên cần ghi chú cẩn thận và thông báo cho nhà bếp.", "If a guest has a special request, such as no spicy food or an allergy to a certain food, staff need to note it carefully and inform the kitchen."],
+    ["Trong giờ cao điểm, nhân viên phải làm việc nhanh nhưng vẫn cần giữ thái độ lịch sự và chuyên nghiệp.", "During peak hours, staff must work quickly but still stay polite and professional."],
+    ["Nếu món ăn ra chậm, họ nên chủ động thông báo cho khách thay vì để khách phải chờ mà không biết lý do.", "If a dish is slow to come out, they should proactively tell the guest instead of leaving them waiting without knowing why."]
+  ],
+  vocab: [["chuẩn bị","to prepare"],["đảm bảo","to ensure"],["hướng dẫn","to guide"],["thực đơn","menu"],["món ăn đặc biệt","special dish"],["yêu cầu riêng","special request"],["dị ứng","allergy; to be allergic"],["giờ cao điểm","peak hours"],["chủ động","proactive; to take the initiative"],["chuyên nghiệp","professional"],["phục vụ","to serve; service"],["ghi chú","to make a note"],["dụng cụ ăn uống","dining utensils"],["lịch sự","polite"],["thông báo","to inform; to notify"]],
+  comp: [
+    {q:"Trước khi nhà hàng mở cửa, nhân viên cần làm gì?", o:["Phục vụ những khách đầu tiên","Kiểm tra bàn ghế và chuẩn bị thực đơn","Về nhà sớm"], a:1, e:"Trước khi mở cửa, nhân viên kiểm tra bàn ghế, chuẩn bị thực đơn và đảm bảo dụng cụ ăn uống đã sẵn sàng."},
+    {q:"Đúng hay sai: Nhân viên nên bỏ qua yêu cầu riêng của khách.", o:["Đúng","Sai"], a:1, e:"Sai. Nhân viên cần ghi chú cẩn thận các yêu cầu riêng và thông báo cho nhà bếp."},
+    {q:"Nếu món ăn ra chậm, nhân viên nên làm gì?", o:["Im lặng và chờ","Chủ động thông báo lý do cho khách","Xóa món ăn khỏi đơn hàng"], a:1, e:"Nhân viên nên chủ động thông báo cho khách thay vì để khách chờ mà không biết lý do."}
+  ]
+},
+{
+  title: "Managing Restaurant Staff",
+  desc: "Morning meetings, task assignments, feedback and teamwork.",
+  rtitle: "Quản lý và phân công công việc cho nhân viên",
+  reading: [
+    ["Nhà hàng của Lan có mười nhân viên.", "Lan's restaurant has ten staff members."],
+    ["Mỗi buổi sáng, cô tổ chức một cuộc họp ngắn để thông báo tình hình kinh doanh, phân công nhiệm vụ và nhắc nhở nhân viên về những vấn đề cần chú ý trong ngày.", "Every morning, she holds a short meeting to update everyone on business conditions, assign tasks, and remind staff of the issues to watch for that day."],
+    ["Lan cho rằng việc phân công công việc rõ ràng giúp nhân viên hiểu trách nhiệm của mình và hạn chế những sai sót không cần thiết.", "Lan believes that clear task assignments help staff understand their responsibilities and reduce unnecessary mistakes."],
+    ["Khi có nhân viên mới, cô thường hướng dẫn từng bước và giải thích quy trình làm việc thay vì chỉ yêu cầu họ tự tìm hiểu.", "When there are new staff, she usually guides them step by step and explains the work procedures instead of just asking them to figure things out alone."],
+    ["Tuy nhiên, quản lý nhân viên không chỉ là giao việc và kiểm tra kết quả.", "However, managing staff is not just about giving out tasks and checking results."],
+    ["Lan cũng thường lắng nghe ý kiến của nhân viên, tìm hiểu khó khăn họ gặp phải và đưa ra phản hồi cụ thể.", "Lan also often listens to her staff, learns about the difficulties they face, and gives specific feedback."],
+    ["Nếu một nhân viên mắc lỗi, cô sẽ trao đổi riêng để tìm nguyên nhân và cùng họ tìm cách cải thiện.", "If a staff member makes a mistake, she talks with them privately to find the cause and works with them to find ways to improve."],
+    ["Nhờ giao tiếp hiệu quả và phối hợp tốt, đội ngũ nhân viên của Lan làm việc có tổ chức hơn.", "Thanks to effective communication and good coordination, Lan's team works in a more organized way."],
+    ["Mọi người cũng sẵn sàng hỗ trợ nhau khi nhà hàng đông khách.", "Everyone is also ready to support one another when the restaurant is busy."]
+  ],
+  vocab: [["quản lý","to manage; manager"],["phân công nhiệm vụ","to assign tasks"],["thông báo","to inform"],["trách nhiệm","responsibility"],["hạn chế","to limit; to reduce"],["sai sót","mistake; error"],["quy trình làm việc","work procedure"],["phản hồi","feedback"],["tìm nguyên nhân","to find the cause"],["cải thiện","to improve"],["phối hợp","to coordinate; to work together"],["đội ngũ","team; staff"],["hỗ trợ","to support"],["trao đổi riêng","to discuss privately"],["nhắc nhở","to remind"],["giao tiếp hiệu quả","effective communication"]],
+  comp: [
+    {q:"Mỗi buổi sáng, cô Lan làm gì?", o:["Đóng cửa nhà hàng sớm","Tổ chức một cuộc họp ngắn với nhân viên","Phỏng vấn ứng viên mới"], a:1, e:"Mỗi sáng cô tổ chức một cuộc họp ngắn để thông báo tình hình, phân công nhiệm vụ và nhắc nhở nhân viên."},
+    {q:"Đúng hay sai: Khi nhân viên mắc lỗi, cô Lan trao đổi riêng với họ.", o:["Đúng","Sai"], a:0, e:"Đúng. Cô trao đổi riêng để tìm nguyên nhân và cùng nhân viên cải thiện."},
+    {q:"Tại sao cô Lan phân công công việc rõ ràng?", o:["Để tiết kiệm tiền","Để hạn chế những sai sót không cần thiết","Để tránh phải họp"], a:1, e:"Phân công rõ ràng giúp nhân viên hiểu trách nhiệm và hạn chế sai sót không cần thiết."}
+  ]
+},
+{
+  title: "Handling Customer Complaints",
+  desc: "Calm responses, correcting mistakes, and keeping guests satisfied.",
+  rtitle: "Xử lý tình huống khi khách phàn nàn",
+  reading: [
+    ["Một buổi tối, nhà hàng của Nam rất đông khách.", "One evening, Nam's restaurant was very busy."],
+    ["Một vị khách gọi nhân viên và phàn nàn rằng món ăn của mình đã được đặt từ lâu nhưng vẫn chưa được phục vụ.", "A guest called a staff member over and complained that their food had been ordered a long time ago but still had not been served."],
+    ["Khách tỏ ra khó chịu vì đang có lịch hẹn sau bữa tối.", "The guest was annoyed because they had an appointment after dinner."],
+    ["Thay vì tranh luận hoặc đổ lỗi cho nhà bếp, Nam bình tĩnh lắng nghe và xin lỗi khách vì sự bất tiện này.", "Instead of arguing or blaming the kitchen, Nam calmly listened and apologized to the guest for the inconvenience."],
+    ["Sau đó, anh kiểm tra lại đơn hàng và phát hiện nhân viên đã nhập nhầm số bàn.", "Then he double-checked the order and discovered that a staff member had entered the wrong table number."],
+    ["Nam lập tức thông báo cho nhà bếp để ưu tiên chuẩn bị món ăn và cập nhật thời gian chờ dự kiến cho khách.", "Nam immediately informed the kitchen to prioritize the dish and updated the guest on the estimated waiting time."],
+    ["Trong lúc chờ, Nam đề nghị kiểm tra xem khách có cần hỗ trợ thêm gì không.", "While the guest waited, Nam offered to check whether they needed any further assistance."],
+    ["Khi món ăn được mang ra, anh quay lại hỏi xem khách đã hài lòng chưa.", "When the food was brought out, he came back to ask whether the guest was satisfied."],
+    ["Vị khách vẫn chưa hoàn toàn vui vẻ, nhưng đánh giá cao cách nhà hàng giải quyết vấn đề.", "The guest was still not completely happy, but appreciated the way the restaurant handled the problem."],
+    ["Sau sự việc, Nam trao đổi với nhân viên để tìm cách tránh lỗi tương tự.", "After the incident, Nam talked with his staff to find ways to avoid similar mistakes."],
+    ["Anh đề xuất mọi người xác nhận số bàn và kiểm tra đơn hàng trước khi gửi xuống nhà bếp.", "He suggested that everyone confirm the table number and check the order before sending it to the kitchen."]
+  ],
+  vocab: [["phàn nàn","to complain; complaint"],["khó chịu","annoyed; uncomfortable"],["tranh luận","to argue; to debate"],["đổ lỗi","to blame"],["sự bất tiện","inconvenience"],["kiểm tra lại","to double-check"],["nhập nhầm","to enter incorrectly"],["ưu tiên","to prioritize"],["thời gian chờ dự kiến","estimated waiting time"],["hỗ trợ","to assist; support"],["hài lòng","satisfied"],["tránh lỗi tương tự","to prevent a similar mistake"],["giải quyết vấn đề","to solve a problem"],["bình tĩnh","calm; calmly"],["xác nhận","to confirm"],["đề xuất","to suggest; to propose"]],
+  comp: [
+    {q:"Tại sao vị khách khó chịu?", o:["Món ăn bị nguội","Khách có lịch hẹn sau bữa tối","Hóa đơn bị sai"], a:1, e:"Khách có lịch hẹn sau bữa tối nên việc chờ đợi lâu gây bất tiện cho họ."},
+    {q:"Đúng hay sai: Anh Nam đổ lỗi cho nhà bếp.", o:["Đúng","Sai"], a:1, e:"Sai. Anh Nam bình tĩnh lắng nghe và xin lỗi khách, không đổ lỗi cho nhà bếp."},
+    {q:"Nguyên nhân thực sự khiến món ăn bị chậm là gì?", o:["Nhà bếp đã đóng cửa","Nhân viên đã nhập nhầm số bàn","Thiếu thực đơn"], a:1, e:"Một nhân viên đã nhập nhầm số bàn vào hệ thống."}
+  ]
+}
+];
+
+const FOODS = ["🍜 🥢 🍅","🥗 🍤 🍋","🍲 🍳 🥖"];
+const state = { lesson: null, tab: "reading", showEn: false, learned: {}, done: {}, ans: {}, sub: {}, score: {} };
+const $ = id => document.getElementById(id);
+
+function home() {
+  return `
+  <div class="hero"><div class="food-row">🥗 🍜 🍤 🍅 🥖 🍋</div><h1>VIETNAMESE FOR REAL LIFE &amp; WORK</h1></div>
+  <p class="sub"><em>Practical Vietnamese | B1 Intermediate</em></p>
+  <div class="grid">${LESSONS.map((L, i) => `
+    <div class="card">
+      <div class="food">${FOODS[i]}</div><h2>Lesson ${i + 1}: ${L.title}</h2>
+      <p>${L.desc}</p>
+      <div><button onclick="openLesson(${i})">Start Lesson</button></div>
+    </div>`).join("")}
+  </div>
+  <footer>Learn Vietnamese with Ha</footer>`;
+}
+
+function lessonView(i) {
+  const L = LESSONS[i];
+  const done = state.done[i] || new Set();
+  const learned = state.learned[i] || new Set();
+  const pct = Math.round((done.size / 3) * 100);
+  const names = { reading: "Reading", vocab: "Learn Vocabulary", comp: "Reading Comprehension" };
+  const tabs = Object.keys(names).map(k =>
+    `<button class="${state.tab === k ? "active" : ""}" onclick="setTab('${k}')">${done.has(k) ? "✓ " : ""}${names[k]}</button>`).join("");
+  let body = "";
+  if (state.tab === "reading") body = readingView(i, L, done);
+  if (state.tab === "vocab") body = vocabView(i, L, learned);
+  if (state.tab === "comp") body = compView(i, L);
+  const sc = state.score[i];
+  return `
+  <div class="bar">
+    <button class="ghost" onclick="goHome()">← Back to Lessons</button>
+    <span class="muted">Lesson ${i + 1} of 3</span>
+  </div>
+  <h1>${L.title}</h1>
+  <div class="progress"><div style="width:${pct}%"></div></div>
+  <p class="muted">Sections completed: ${done.size}/3 · Words learned: ${learned.size}/${L.vocab.length}${sc ? ` · Quiz score: ${sc.c}/${sc.n}` : ""}</p>
+  <div class="tabs">${tabs}</div>
+  <div class="panel">${body}</div>
+  <footer>Learn Vietnamese with Ha</footer>`;
+}
+
+function readingView(i, L, done) {
+  const paras = L.reading.map(([vi, en]) =>
+    `<p class="para"><span class="vi">${vi}</span><span class="en">${en}</span></p>`).join("");
+  return `
+  <h2>${L.rtitle}</h2>
+  <div class="bar">
+    <button class="ghost" onclick="toggleEn()">${state.showEn ? "Hide English Translation" : "Show English Translation"}</button>
+    <button onclick="markDone(${i},'reading')" ${done.has("reading") ? "disabled" : ""}>${done.has("reading") ? "Reading completed ✓" : "Mark reading as complete"}</button>
+  </div>
+  <div class="${state.showEn ? "show-en" : ""}">${paras}</div>`;
+}
+
+function vocabView(i, L, learned) {
+  const cards = L.vocab.map(([vi, en], k) => `
+    <div class="vcard ${learned.has(k) ? "learned" : ""}">
+      <span class="w">${vi}</span>
+      <span>${en}</span>
+      <button class="ghost" onclick="toggleWord(${i},${k})">${learned.has(k) ? "✓ Learned" : "Mark as Learned"}</button>
+    </div>`).join("");
+  return `<h2>Learn Vocabulary</h2><p class="muted">Mark each word once you feel confident with it.</p><div class="vgrid">${cards}</div>`;
+}
+
+function compView(i, L) {
+  const ans = state.ans[i] || {};
+  const sub = state.sub[i];
+  const qs = L.comp.map((x, qi) => {
+    const opts = x.o.map((o, oi) => {
+      let cls = "";
+      if (sub) { if (oi === x.a) cls = "right"; else if (ans[qi] === oi) cls = "wrong"; }
+      else if (ans[qi] === oi) cls = "sel";
+      return `<button class="${cls}" ${sub ? "disabled" : ""} onclick="pick(${i},${qi},${oi})">${o}</button>`;
+    }).join("");
+    const exp = sub ? `<p class="expl">${ans[qi] === x.a ? "Chính xác. " : "Chưa đúng. "}${x.e}</p>` : "";
+    return `<div class="q"><p><strong>${qi + 1}. ${x.q}</strong></p><div class="opts">${opts}</div>${exp}</div>`;
+  }).join("");
+  const sc = state.score[i];
+  const all = Object.keys(ans).length === L.comp.length;
+  const controls = sub
+    ? `<p class="score">Điểm của bạn: ${sc.c}/${sc.n}</p><button onclick="retry(${i})">Làm lại</button>`
+    : `<button onclick="submitComp(${i})" ${all ? "" : "disabled"}>Nộp bài</button>`;
+  return `<h2>Đọc hiểu</h2>${qs}${controls}`;
+}
+
+function render() {
+  const app = $("app");
+  app.innerHTML = state.lesson === null ? home() : lessonView(state.lesson);
+  window.scrollTo(0, 0);
+}
+function openLesson(i) { state.lesson = i; state.tab = "reading"; state.showEn = false; render(); }
+function goHome() { state.lesson = null; render(); }
+function setTab(t) { state.tab = t; render(); }
+function toggleEn() { state.showEn = !state.showEn; render(); }
+function markDone(i, k) { (state.done[i] = state.done[i] || new Set()).add(k); render(); }
+function toggleWord(i, k) {
+  const s = state.learned[i] = state.learned[i] || new Set();
+  s.has(k) ? s.delete(k) : s.add(k);
+  render();
+}
+function pick(i, qi, oi) {
+  if (state.sub[i]) return;
+  state.ans[i] = state.ans[i] || {};
+  state.ans[i][qi] = oi;
+  render();
+}
+function submitComp(i) {
+  const L = LESSONS[i], ans = state.ans[i] || {};
+  let c = 0;
+  L.comp.forEach((x, qi) => { if (ans[qi] === x.a) c++; });
+  state.score[i] = { c, n: L.comp.length };
+  state.sub[i] = true;
+  (state.done[i] = state.done[i] || new Set()).add("comp");
+  render();
+}
+function retry(i) { state.ans[i] = {}; state.sub[i] = false; state.score[i] = null; render(); }
+
+render();
+</script>
+</body>
+</html>
